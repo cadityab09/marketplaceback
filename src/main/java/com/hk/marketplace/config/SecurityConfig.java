@@ -54,10 +54,11 @@ public class SecurityConfig {
 				.cors(Customizer.withDefaults()) // Enable CORS support
 				.csrf(customizer -> customizer.disable())
 				.authorizeHttpRequests(request -> request
-						.requestMatchers("/users/login", "/users/register","/api/franchisor-brands").permitAll()
+						.requestMatchers("/api/**","api/orders").permitAll()
+						.requestMatchers("/users/login", "/users/register","/api/franchisor-brands","api/franchisor/*","/api/inventory/*","/api/inventory","/api/inventory/:id","api/orders/*","api/orders").permitAll()
 						// .requestMatchers("/api/franchisor-brands").hasAuthority(UserRole.FRANCHISOR.name())
 						.anyRequest().authenticated())
-				.formLogin(Customizer.withDefaults())
+				// .formLogin(Customizer.withDefaults())
 				.httpBasic(Customizer.withDefaults())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
